@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<head th:replace="~{baseform :: head}"></head>
+
+<meta charset="UTF-8">
+<title>Lista de autores</title>
+</head>
+<body class="centralize">
+	<div th:if="${mensagemErro}" th:text="${mensagemErro}"></div>
+	<form action="/book/form/save" method="POST">
+
+		<div th:if="${book}">
+			<input type="text" readonly id="id" name="id" th:value="${book?.id}" />
+		</div>
+		<div>
+			<label for="name">Nome do livro:</label>
+		</div>
+		<div>
+			<input type="text" id="name" class="form-controlname" name="name" th:value="${book?.name}" />
+		</div>
+		<div>
+			<label for="author">Selecione um autor</label>
+		</div>
+		<div>
+			<select name="author" id="author" class="custom-select">
+				<option th:each="author : ${authorList}" th:value="${author.id}" th:text="${author.name}"
+					th:selected="${author.id} == ${book?.author?.id}">
+			</select>
+		</div>
+		<div class="btnSend">
+			<button type="submit"> Cadastrar novo Livro </button>
+		</div>
+		<div>
+		<a th:href="@{/lista}"> Voltar para lista </a>
+		</div>
+	</form>
+
+</body>
+</html>
